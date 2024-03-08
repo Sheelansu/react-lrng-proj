@@ -19,6 +19,7 @@ function App() {
     <>
       <Cards someObj = {emp1} />
       <Cards someObj = {emp2} />
+      <Cards />
     </>
   )
 }

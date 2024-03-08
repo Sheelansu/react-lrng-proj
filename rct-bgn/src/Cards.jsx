@@ -3,11 +3,10 @@ import './App.css'
 
 function Cards({someObj = {
     uName : 'John Doe',
-    uDesc : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae veritatis minima maxime.",
+    uDesc : "Lorem ipsum dolor sit amet consectetur elit. Vitae veritatis minima maxime.",
     uImg : "https://cdn.vectorstock.com/i/preview-1x/66/14/default-avatar-photo-placeholder-profile-picture-vector-21806614.jpg"
 }}) {
   const [count, setCount] = useState(0)
-  console.log(someObj);
 
   return (
     <>

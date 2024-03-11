@@ -1,10 +1,27 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import './App.css'
 import Cards from './Cards'
-import BgChanger from './BgChanger'
 
 function App() {
   const [color, setColor] = useState("lavender")
+  const [length, setLength] = useState(8)
+  const [numAllowed, setNumAllowed] = useState(false)
+  const [symAllowed, setSymAllowed] = useState(false)
+  const [password, setPassword] = useState()
+
+  const passwordGenerator = useCallback(()=>{
+    let pwd = ""
+    let str = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuioplkjhgfdsazxcvbnm"
+    if(numAllowed) str+="1234567890"
+    if(symAllowed) str+="!@#$_*&%"
+
+    for (let i = 0; i < length; i++) {
+      const inx = Math.floor(Math.random * str.length + 1)
+      pwd += str.charAt(inx)
+      
+    }
+    setPassword(pwd)
+  }, [length, numAllowed, symAllowed, setPassword])
 
   const emp1 = {
     uName : 'Sher',
@@ -17,7 +34,23 @@ function App() {
     uImg : "https://www.simplilearn.com/ice9/free_resources_article_thumb/What-Skills-Do-I-Need-to-Become-a-Data-Scientist.jpg"
   }
   return (
-      <div className='w-full h-full duration-200 flex justify-center' style={{backgroundColor : color}}>
+      <div style={{backgroundColor : color}}>
+        <div className=' w-full max-w-md shadow-md rounded-lg px-4 my-8 text-orange-500 bg-gray-700'>
+          <h1 className=' text-white text-center my-3'>PASSWORD GENERATOR</h1>
+          <div className='flex shadow rounded-lg overflow-hidden mb-4'>
+            <input type="text" value={password} className=" outline-none w-full py-1 px-3" placeholder='PASSWORD' readOnly/>
+            <button className=' outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>COPY</button>
+          </div>
+          <div className='flex text-sm gap-x-2'>
+            <div className='flex items-center gap-x-1'>
+              <input type="range" min={6} max={40} value={length} className=' cursor-pointer' 
+              onChange={(e)=>{setLength(e.target.value)}}/>
+              <label >Length: {length}</label>
+            </div>
+          </div>
+        </div>
+        <div className='w-full h-full duration-200 flex justify-center' style={{backgroundColor : color}}>
+        
         <div>
         <Cards someObj = {emp1} />
         <Cards someObj = {emp2} />
@@ -59,6 +92,7 @@ function App() {
           style={{backgroundColor : 'red'}}
           >RED</button>
         </div>
+      </div>
       </div>
   )
 }
